@@ -63,18 +63,42 @@ ORDER BY district;
 -- Question 7.
 -- What film has the most actors in it? (use film_actor table and get film_id)
 
-SELECT *
+SELECT count(actor_id), film_id  
 FROM film_actor
-ORDER BY film_id;
+group BY film_id
+ORDER  BY count(actor_id) DESC;
 
+--Answer: Lambs Cincinatti -- I think I did this right? 
+------------------------------------------------------------------------------------------------
+-- Question 8: 
+-- From store_id 1, how many customers have a last name ending with 'es' (use customer table)
 
+SELECT count(last_name) 
+FROM customer
+WHERE store_id = 1 AND last_name LIKE '%es';
 
+-- Answer: 13 customers
+------------------------------------------------------------------------------------------------
+--Question 9:
+-- How many payment amounts (4.99, 5.99, etc.) had a number of rentals above 250 for customers
+-- with ids between 380 and 430? (use group by and having > 250)
 
+SELECT amount, count(amount)
+FROM payment
+GROUP BY amount
+HAVING customer_id > 380 AND customer_id < 430 AND count(amount) > 250
+ORDER BY count(amount);
 
+-- come back to this one
+------------------------------------------------------------------------------------------------
+-- Question 10.
+-- Within the film table, how many rating categories are there? And what rating has the most movies total?
 
-
-
-
+SELECT rating, count(rating) 
+FROM film
+GROUP BY rating
+ORDER BY count(rating) DESC;
+-- Answer: There are 5 rating categories. PG-13 is the rating with the most movies.
 
 
 
